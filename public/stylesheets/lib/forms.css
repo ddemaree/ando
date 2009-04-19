@@ -1,0 +1,133 @@
+/* @override http://vitalicious.local.practical.cc/stylesheets/admin_core/forms.css */
+
+button {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.FormError, .FormError li {
+	color: #c00;
+}
+
+.fieldWithErrors {
+	display: inline;
+}
+
+dl, dd, dt {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+form dt {
+	font-weight: bold;
+	margin: 0 0 0px;
+}
+
+form dd {
+	margin: 0 0 4px;
+}
+
+form dd + dd {
+	margin: -2px 0 4px;
+}
+
+form dd.info {
+	font-size: 11px;
+	color: #666;
+}
+
+form dd + dt {
+	margin: 12px 0 4px;
+}
+
+form dd.info + dt {
+	margin: 12px 0 4px;
+}
+
+form .image_field {
+	padding: 10px;
+	background: #ffe;
+	border: 1px solid #d4d4d4;
+	margin: 6px 0;
+	width: 300px;
+}
+
+form .image_field input {
+	max-width: 280px;
+}
+
+form div.action {
+	margin: 10px 5px 0;
+	padding: 6px 10px;
+	background: #d4d4d4;
+	color: #4a4a4a;
+	text-align: center;
+	-webkit-border-radius: 10px;
+}
+
+form div.action button {
+	padding: 0px;
+	background: #fff;
+	border: 1px solid #000;
+	border-color: #ddd #666 #666 #ddd;
+	border-width: 0 1px 1px 0;
+	font-size: 12px;
+}
+
+form div.action button span {
+	padding: 3px 5px 3px 20px;
+	display: block;
+	background: #d5ecf4 url(../../images/icons/stockholm/check.gif) no-repeat 5px center;
+	border: 1px solid #fff;
+	color: #354658;
+}
+
+form div.action button:hover span {
+	background-color: #a8e0f3;
+}
+
+form div.action button:active {
+	border: none;
+}
+
+form div.singleton {
+	margin: 12px 0 4px;
+}
+
+form textarea,
+form input[type='text'],
+select {
+	border-style: solid;
+	border-color: #999 #ccc #ccc #999;
+	border-width: 1px;
+	padding: 1px;
+}
+
+form textarea.wide {
+	width: 98%;
+	max-width: 500px;
+}
+
+form input.big {
+	font-size: 16px;
+	padding: 3px 2px;
+}
+
+form input.currency {
+	text-align: right;
+}
+
+form .currency-symbol {
+	font-size: 20px;
+	margin-right: 3px;
+}
+
+form .unit {
+	font-size: 20px;
+	margin-left: 3px;
+}
+
+form .column {
+	float: left;
+	margin: 10px 20px 10px 0;
+}

@@ -1,0 +1,23 @@
+<div class="page_header">
+	<h2>Articles</h2>
+
+	<ul class="actions nolist">
+		<li><%= link_to "Create new article", {:action => "new"}, :class => "action new" %></li>
+	</ul>
+</div>
+<div class="main">
+<table id="articles_index" class="list_view articles" cellspacing="0" border="0">
+	<tr class="header_row">
+		<th>Article Title</th>
+		<th>Status</th>
+		<th>Published on</th>
+		<th>&nbsp;</th>
+	</tr>
+<% content_tags_for :tr, @articles do |article| %>
+	<td><%= link_to article, {:action => "edit", :id => article}, :class => "item article" %></td>
+	<td><%= article.status %></td>
+	<td><%= article.created_at %></td>
+	<td>&nbsp;</td>
+<% end %>
+</table>
+</div>

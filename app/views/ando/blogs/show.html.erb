@@ -1,0 +1,13 @@
+
+
+<ul class="nolist postables">
+<% current_blog.postables.each do |postable| %>
+<li class="postable <%= postable.post_type %>">
+	<strong class="post_type"><%= postable.post_type %></strong>
+	<h3><%= link_to postable.post, [:ando, current_blog, postable.post] %></h3>
+	<p class="actions">
+		<%= link_to "Edit", [:edit, :ando, current_blog, postable.post] %>
+	</p>
+</li>
+<% end %>
+</ul>

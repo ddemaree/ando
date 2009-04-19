@@ -1,0 +1,7 @@
+practicalmadness:
+  name: Practicalmadness
+  basename: practicalmadness
+
+rails_blog:
+  name: David's Rails Blog
+  basename: rails_blog

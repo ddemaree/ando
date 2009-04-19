@@ -1,0 +1,41 @@
+/* @override http://lappy586.local:3207/stylesheets/lib/actions.css */
+
+a.action {
+	padding-left: 16px;
+	background: url(../../images/icons/stockholm/bullet.gif) no-repeat left center;
+	text-decoration: none;
+}
+
+a.action:hover {
+	text-decoration: underline;
+}
+
+a.action.new {
+	background-image: url(../../images/icons/stockholm/add_file.gif);
+}
+
+a.action.add {
+	background-image: url(../../images/icons/stockholm/add.gif);
+}
+
+a.action.edit {
+	background-image: url(../../images/icons/stockholm/edit.gif);
+}
+
+a.action.show {
+	background-image: url(../../images/icons/stockholm/file.gif);
+}
+
+a.action.delete {
+	background-image: url(../../images/icons/stockholm/trash.gif);
+}
+
+a.action.user {
+	background-image: url(../../images/icons/stockholm/user.gif);
+	background-position: 1px center;
+}
+
+a.action.page {
+	background-image: url(../../images/icons/stockholm/file.gif);
+	background-position: 1px center;
+}

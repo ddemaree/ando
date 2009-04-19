@@ -1,0 +1,23 @@
+<div class="page_header">
+	<h2>Links</h2>
+
+	<ul class="actions nolist">
+		<li><%= link_to "Create new link", {:action => "new"}, :class => "action new" %></li>
+	</ul>
+</div>
+<div class="main">
+<table id="links_index" class="list_view links" cellspacing="0" border="0">
+	<tr class="header_row">
+		<th>Link Title</th>
+		<th>URL</th>
+		<th>Published on</th>
+		<th>&nbsp;</th>
+	</tr>
+<% content_tags_for :tr, @links do |link| %>
+	<td><%= link_to link, {:action => "edit", :id => link}, :class => "item link" %></td>
+	<td><%= link.url %></td>
+	<td><%= link.created_at %></td>
+	<td>&nbsp;</td>
+<% end %>
+</table>
+</div>

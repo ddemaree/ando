@@ -1,28 +1,17 @@
 ActionController::Routing::Routes.draw do |map|
-  SprocketsApplication.routes(map)
   
-  map.resources :links, :articles
-
-  map.namespace :admin do |admin|
-    admin.resources :services, :only => [:index]
+  map.namespace :ando do |admin|
+    admin.resources :blogs do |blog|
+      blog.resources :items
+      blog.resources :articles, :links, :pictures
+    end
     
-    admin.resources :postables, :posts, :controller => "posts", :only => [:index]
-    admin.resources :articles, :links
-    admin.resources :users
-    
-    admin.root :controller => "posts"
+    admin.root :controller => "blogs"
   end
 
-  map.root :controller => 'website'
-
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
+  # Install the default routes as the lowest priority.
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
   
-  map.resource :session
-  
-  #map.connect ':controller/:action/:id'
-  #map.connect ':controller/:action/:id.:format'
-  
+  map.connect '*wildcard', :controller => "website", :action => "show"
 end

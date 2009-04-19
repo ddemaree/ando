@@ -1,0 +1,86 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+index_template:
+  type: Index
+  blog_id: 1
+  id: 1
+  name: Index Template
+  route: ""
+  cached_regexp: "^(\/*index)*(.html)*$"
+  content: |
+    <h1>DAVID'S BLOG!!!</h1>
+    <div class="posts">
+    <blrb:posts sort_order="asc" lastn="20">
+    <div class="post">
+      <blrb:if slug="first_post">THIS IS THE FIRST POST</blrb:if>
+    
+      <blrb:switch on="slug">
+        <blrb:when value="first_post">PORK</blrb:when>
+      </blrb:switch>
+      <h2><blrb:title /></h2>
+      
+      <blrb:partial name="Porkwalk" />
+    </div>
+    </blrb:posts>
+    </div>
+
+individual_template:
+  type: Archive
+  blog_id: 1
+  id: 2
+  name: Individual Template
+  route: ":year/:month/:basename"
+  cached_regexp: "^\\d{4}\/\\d{2}\/[a-z0-9_\-]+$"
+  content: |
+    <div class="post" id="post_<blrb:post:id />">
+    <h2><blrb:post:title /></h2>
+    </div>
+  
+archive_template:
+  type: Archive
+  blog_id: 1
+  id: 3
+  name: Archive Template
+  route: ":year/:month"
+  cached_regexp: "^\\d{4}\/\\d{2}$"
+  content: |
+    <div class="posts">
+    <blrb:posts sort_order="asc" lastn="20">
+    <div class="post">
+      <h2><blrb:title /></h2>
+    </div>
+    </blrb:posts>
+    </div>
+    
+archives_page_template:
+  type: Index
+  blog_id: 1
+  id: 4
+  name: Archives Page
+  route: "archives"
+  cached_regexp: "^archives(\/index)*(.html)*$"
+  content: |
+    <h1>Archives Page</h1>
+    <div class="posts">
+    <blrb:posts sort_order="asc" lastn="20">
+    <div class="post">
+      <h2><blrb:title /></h2>
+    </div>
+    </blrb:posts>
+    </div>
+    
+partial_template:
+  type: Partial
+  blog_id: 1
+  id: 5
+  name: Porkwalk
+  content: |
+    <div id="porkwalk">Pork is walking to school</div>
+    
+partial_template_with_post_title:
+  type: Partial
+  blog_id: 1
+  id: 6
+  name: Link Post
+  content: |
+    <div id="link"><blrb:title /></div>

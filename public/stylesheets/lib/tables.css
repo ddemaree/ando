@@ -1,0 +1,78 @@
+/* @override http://ando.local.practical.cc/stylesheets/lib/tables.css */
+
+table.list_view {
+	width: 100%;
+	margin: 0px 0 0px;
+}
+
+table.list_view td,
+table.list_view th {
+	font-size: 14px;
+	padding: 5px 6px;
+	border-bottom: 1px solid #d8d8d8;
+	text-align: left;
+}
+
+table.list_view th {
+	white-space: nowrap;
+	font-size: 12px;
+	color: #888;
+	text-transform: uppercase;
+	padding-bottom: 2px;
+}
+
+table.list_view tr th:first-child,
+table.list_view tr td:first-child {
+	padding-left: 6px;
+}
+
+table.list_view .currency {
+	text-align: right;
+}
+
+table.list_view .icon {
+	width: 1px;
+	white-space: nowrap;
+	text-align: center;
+	padding-right: 0;
+}
+
+table.list_view .actions {
+	white-space: nowrap;
+	text-align: right;
+	padding-right: 15px;
+}
+
+table.list_view .actions a {
+	margin-left: 12px;
+	font-size: 12px;
+}
+
+table.list_view tr.odd {
+	background-color: #fff;
+}
+
+table.list_view tr.even {
+	background-color: #f5f5f5;
+}
+
+table.list_view .no_matches,
+table.list_view .noitems {
+	text-align: center;
+	padding: 80px 0px;
+	font-size: 18px;
+	color: #8a8a8a;
+	background-color: #fff;
+}
+
+table.list_view .no_matches a,
+table.list_view .noitems a {
+	color: #e50003;
+}
+
+table.list_view .header_row th {
+	color: #666;
+	border: none;
+	padding-top: 0;
+	border-bottom: 1px solid #d4d4d4;
+}

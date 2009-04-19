@@ -1,0 +1,2 @@
+module Ando::BlogsHelper
+end

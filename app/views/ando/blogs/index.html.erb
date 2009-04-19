@@ -1,0 +1,23 @@
+<div class="page_header">
+	<h2>Blogs</h2>
+
+	<ul class="actions nolist">
+		<li><%= link_to "Create new blog", {:action => "new"}, :class => "action new" %></li>
+	</ul>
+</div>
+<div class="main">
+<table id="blogs_index" class="list_view blogs" cellspacing="0" border="0">
+	<tr class="header_row">
+		<th>Blog Name</th>
+		<th>Created at</th>
+		<th>&nbsp;</th>
+	</tr>
+<% content_tags_for :tr, @blogs do |blog| %>
+	<td><%= link_to blog, {:action => "show", :id => blog}, :class => "item blog" %></td>
+	<td><%= blog.created_at %></td>
+	<td class="actions">
+		<%= link_to "Edit Blog", {:action => 'edit', :id => blog}, :class => 'action edit' %>
+	</td>
+<% end %>
+</table>
+</div>

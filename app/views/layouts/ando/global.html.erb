@@ -1,0 +1,11 @@
+<% render :layout => "/layouts/ando/chrome" do %>
+
+<div class="titlebar clearfix">
+	<h1><%= link_to "Ando", "/ando", :id => "ando_link" %></h1>
+	<ul class="blog_actions nolist">
+		<%= nav_item "Blogs", ando_blogs_path, :blogs %>
+	</ul>
+</div>
+
+<%= yield :layout %>
+<% end %>

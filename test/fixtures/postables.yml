@@ -1,0 +1,9 @@
+first_article_postable:
+  blog: practicalmadness
+  name: First Article
+  post: first_article (Article)
+
+second_article_postable:
+  blog: practicalmadness
+  name: Second Article
+  post: second_article (Article) 

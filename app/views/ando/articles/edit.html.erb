@@ -1,0 +1,34 @@
+<div class="page_header clearfix">
+	<h2>
+		<%= link_to "Articles", {:action => "index"} %> &raquo;
+		<%= @article.new_record? ? "New" : "Edit" %> Article
+	</h2>
+
+	<% content_tag :ul, :class => "actions nolist" do %>
+		<li><%= link_to "Delete this article", {:action => "destroy", :confirm_destroy => true}, :method => :delete, :class => "action new" %></li>
+	<% end unless @article.new_record? %>
+</div>
+<div class="main">
+<%= error_messages_for :article %>
+
+<% form_for [:ando, current_blog, @article] do |f| %>
+
+<% fieldset :dl => true do %>
+	<%= f.labeled_text_field_with_error :title, :class => "big wide" %>
+	<%= f.labeled_text_area_with_error :body, :class => "wide", :cols => 60, :rows => 20 %>
+	<%= f.labeled_text_area_with_error :excerpt, :class => "wide", :cols => 60, :rows => 5 %>
+<% end %>
+
+<% fieldset :legend => "Item Details", :dl => true do %>
+	<%= f.labeled_select :status, %w(draft published) %>
+	<%= f.labeled_text_field_with_error :basename %>
+	<%= f.labeled_text_area_with_error :tags, :cols => 60, :rows => 5 %>
+	<%= f.labeled_text_area_with_error :keywords, :cols => 60, :rows => 5 %>
+<% end %>
+
+<div class="form_actions">
+	<button class="save_changes">Save changes</button>
+</div>
+
+<% end %>
+</div>
