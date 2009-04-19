@@ -1,0 +1,20 @@
+<h1>Posts</h1>
+
+<ul class="posts_list">
+<% @posts.each do |post| %>
+<li id="<%= dom_id(post) %>" class="post <%= post.post_type.downcase %>">
+	<div class="post_type"><strong><%= post.post_type %></strong></div>
+	<div class="post_summary">
+		<h4 class="name"><%= link_to post.name, [:ando, post.post] %></h4>
+		<p class="excerpt"><%= truncate post.description, 60 %></p>
+	</div>
+	<div class="post_status">
+		<strong><%= post.status %></strong>
+		Updated <%= post.updated_at.to_s(:short) %>
+	</div>
+	<hr class="clear">
+</li>
+<% end %>
+</ul>
+
+<%= will_paginate @posts %>

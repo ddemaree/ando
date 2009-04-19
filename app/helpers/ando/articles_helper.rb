@@ -1,0 +1,2 @@
+module Ando::ArticlesHelper
+end

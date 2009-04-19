@@ -9,15 +9,66 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090418175400) do
+ActiveRecord::Schema.define(:version => 20090418184453) do
+
+  create_table "articles", :force => true do |t|
+    t.string   "title"
+    t.string   "url_slug"
+    t.text     "body"
+    t.text     "extended"
+    t.text     "excerpt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "links", :force => true do |t|
+    t.string   "title"
+    t.string   "url"
+    t.string   "link_type"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "posts", :force => true do |t|
+    t.integer  "post_id"
+    t.string   "post_type"
+    t.integer  "author_id"
+    t.string   "status",       :default => "draft"
+    t.datetime "published_at"
+    t.string   "name"
+    t.text     "description"
+    t.text     "content"
+    t.text     "_tags"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.integer  "taggings_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
+    t.string   "name"
     t.string   "email"
-    t.string   "encrypted_password", :limit => 128
-    t.string   "salt",               :limit => 128
-    t.string   "token",              :limit => 128
+    t.string   "password",         :limit => 64
+    t.string   "open_id"
+    t.string   "role"
+    t.string   "token",            :limit => 128
     t.datetime "token_expires_at"
-    t.boolean  "email_confirmed",                   :default => false, :null => false
+    t.boolean  "email_confirmed",                 :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"

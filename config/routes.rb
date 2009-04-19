@@ -1,9 +1,14 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'website'
 
-  map.resources :users, :has_one => [:password, :confirmation]
   map.resource :session
-  map.resources :passwords
+  
+  map.namespace :ando do |a|
+    a.resources :posts, :articles
+    a.root :controller => "posts"
+  end
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

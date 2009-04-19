@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<title><%= page_title %></title>
+	<link href="/stylesheets/admin.css" rel="stylesheet" type="text/css" media="screen">
+	<%# TODO: SPROCKETS %>
+	<%= javascript_include_tag :defaults %>
+</head>
+
+<% content_tag :body, :id => body_id, :class => body_classes.join(" ") do %>
+
+<div class="container">
+	<%= yield :layout %>
+</div>
+	
+<% end %>
+	
+</html>

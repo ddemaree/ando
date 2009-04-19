@@ -35,4 +35,25 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  
+  def set_current_user
+    Ando.current_user = @current_user = Factory(:email_confirmed_user)
+  end
+  
+  def mock_date_and_time
+    Date.stubs(:today).returns Date.new(2008,2,15)
+    Time.stubs(:now).returns   Time.utc(2008,2,15,12,0,0)
+  end
+  
+  def self.should_provide_accessors_for(*methods)
+    instance = get_instance_of(model_class)
+    
+    methods.each do |method_name|
+      should "provide accessor for #{method_name}" do
+        assert instance.respond_to?(method_name.to_sym)
+        assert instance.respond_to?("#{method_name}=".to_sym)
+      end
+    end
+  end
+  
 end

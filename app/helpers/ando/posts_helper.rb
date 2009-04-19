@@ -1,0 +1,2 @@
+module Ando::PostsHelper
+end
