@@ -1,38 +1,42 @@
+# This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-  protect_from_forgery :except => :create
-  filter_parameter_logging :password
-  
+  layout 'login'
+
+  # render new.rhtml
   def new
   end
-  
+
   def create
-    @user = User.authenticate(params[:session][:email],
-                              params[:session][:password])
-    if @user.nil?
-      flash.now[:notice] = "Bad email or password."
-      render :action => :new, :status => :unauthorized
+    logout_keeping_session!
+    user = User.authenticate(params[:login], params[:password])
+    if user
+      # Protects against session fixation attacks, causes request forgery
+      # protection if user resubmits an earlier form using back
+      # button. Uncomment if you understand the tradeoffs.
+      # reset_session
+      self.current_user = user
+      new_cookie_flag = (params[:remember_me] == "1")
+      handle_remember_cookie! new_cookie_flag
+      redirect_back_or_default('/')
+      flash[:notice] = "Logged in successfully"
     else
-      sign_user_in(@user)
-      flash[:notice] = "Signed in successfully."
-      redirect_back_or root_url
+      note_failed_signin
+      @login       = params[:login]
+      @remember_me = params[:remember_me]
+      render :action => 'new'
     end
   end
 
   def destroy
-    forget(current_user)
-    reset_session
-    flash[:notice] = "You have been signed out."
-    redirect_to root_url
-  end
-  
-private
-
-  def url_after_create
-    root_url
+    logout_killing_session!
+    flash[:notice] = "You have been logged out."
+    redirect_back_or_default('/')
   end
 
-  def url_after_destroy
-    new_session_url
+protected
+  # Track failed login attempts
+  def note_failed_signin
+    flash[:error] = "Couldn't log you in as '#{params[:login]}'"
+    logger.warn "Failed login for '#{params[:login]}' from #{request.remote_ip} at #{Time.now.utc}"
   end
-
 end

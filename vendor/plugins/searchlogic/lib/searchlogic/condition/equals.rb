@@ -21,12 +21,8 @@ module Searchlogic
         else
           args << value
         end
-        
-        begin
-          return [klass.send(:attribute_condition, column_sql, value), *args]
-        rescue ArgumentError
-          return ["#{column_sql} #{klass.send(:attribute_condition, value)}", *args] # for older versions of AR
-        end
+                        
+        ["#{column_sql} #{klass.send(:attribute_condition, value)}", *args]
       end
     end
   end

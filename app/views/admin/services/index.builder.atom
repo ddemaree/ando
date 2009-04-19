@@ -1,0 +1,23 @@
+xml.instruct!
+xml.service :xmlns => "http://www.w3.org/2007/app", "xmlns:atom" => "http://www.w3.org/2005/Atom" do
+  
+  xml.workspace do
+    xml.tag! "atom:title", "Main Site"
+    xml.collection :href => admin_articles_url(:format => :atom) do
+      xml.tag! "atom:title", "Articles"
+      xml.accept "application/atom+xml;type=entry"
+    end
+    xml.collection :href => admin_links_url(:format => :atom) do
+      xml.tag! "atom:title", "Links"
+      xml.accept "application/atom+xml;type=entry"
+    end
+  end
+  
+end
+
+# atom_service do
+#   workspace "Main Site" do
+#     collection :articles, :url => admin_articles_url(:format => :atom)
+#     collection :links, :url => admin_articles_url(:format => :atom)
+#   end
+# end

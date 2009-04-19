@@ -155,9 +155,7 @@ module Searchlogic
           else
             return if meaningless?(v)
             return v if !column_for_type_cast || !v.is_a?(String)
-            tcv = column_for_type_cast.type_cast(v) 
-            tcv -= Time.zone.utc_offset if tcv.is_a?(Time)
-            tcv
+            column_for_type_cast.type_cast(v)
           end
         end
     end

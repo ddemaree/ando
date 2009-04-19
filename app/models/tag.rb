@@ -1,20 +1,7 @@
 class Tag < ActiveRecord::Base
-  
-  validates_presence_of :name
-  validates_format_of :name, :with => /[\w ]+/
-  
-  has_many :taggings, :dependent => :destroy
-  
-  def self.serialize(tags_as_array)
-    tags_as_array.map { |t| "[#{t}]" }.join(" ")
-  end
-  
-  def self.unserialize(tags_as_string)
-    tags_as_string.to_s.split(/\] *\[/).map {|t| t.gsub(/[\[\]]/, "") }
-  end
-  
+  has_many :taggings
+
   def self.parse(list)
-    
     # Add support for arrays, which would be coming from a JS tag builder
     if list.is_a?(Array)
       return list.collect(&:strip).delete_if(&:empty?).uniq
@@ -44,5 +31,20 @@ class Tag < ActiveRecord::Base
     
     return tag_names
   end
+
+  def tagged
+    @tagged ||= taggings.collect { |tagging| tagging.taggable }
+  end
   
+  def on(taggable)
+    taggings.create :taggable => taggable
+  end
+  
+  def ==(comparison_object)
+    super || name == comparison_object.to_s
+  end
+  
+  def to_s
+    name
+  end
 end

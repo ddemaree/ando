@@ -8,22 +8,24 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
   
-  config.gem 'thoughtbot-clearance',
-		:lib => 'clearance',
-		:source => 'http://gems.github.com/',
-		:version => '>= 0.5.0'
+  config.gem 'rubyist-aasm', :source => 'http://gems.github.com/',
+                             :lib => 'aasm',
+                             :version => '~> 2.0.2'
+                             
+  config.gem 'mislav-will_paginate', :source => 'http://gems.github.com',
+                             :version => '~> 2.2.3', 
+                             :lib => 'will_paginate'
+ 
+  config.gem 'thoughtbot-paperclip', :lib => 'paperclip',
+                             :source => 'http://gems.github.com',
+                             :version => '~>2.2.6'
   
-  config.gem 'mislav-will_paginate',
-    :lib => 'will_paginate',
-    :source => 'http://gems.github.com',
-    :version => '~> 2.2.3'
+  config.gem 'sprockets', :version => '~>1.0.2'
   
-  config.gem 'rubyist-aasm',
-		:source => 'http://gems.github.com/',
-    :lib => 'aasm',
-    :version => '~> 2.0.2'
-  
-  config.gem 'rdiscount', :version => '~> 1.3.4'
-  
+  #config.active_record.observers = :user_assignment_observer
   config.time_zone = 'UTC'
+
+  # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
+  # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
+  # config.i18n.default_locale = :de
 end

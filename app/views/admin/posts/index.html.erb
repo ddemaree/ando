@@ -1,0 +1,40 @@
+<%- @yui_template = "yui-t6" -%>
+<h1 class="ando-page-title">Posts</h1>
+
+<div id="yui-main">
+	<div class="yui-b ando-list-view">
+		<table>
+		<% @posts.each do |post| %>
+		<tr id="<%= dom_id(post) %>">
+			<td>
+				<strong><%= post.post_type %></strong>
+				<strong><%= post.status %></strong>
+			</td>
+			<td>
+				<h4><%= link_to post, [:edit, :admin, post.post] %></h4>
+				<p><%= truncate post.try(:description).to_s, 100 %></p>
+			</td>
+			<td>
+				<%= post.created_at.to_s(:short) %>
+			</td>
+		</tr>
+		<% end %>
+		</table>
+	</div>
+</div>
+
+<div class="yui-b">
+	<% form_for [:admin, @search] do |f| %>
+	
+	<fieldset>
+	<% f.fields_for @search.conditions do |posts| %>	
+	<div>
+		<label>Published after</label>
+		<p><%= posts.text_field :published_at_gte %></p>
+	</div>
+	<% end %>
+	</fieldset>
+
+	<p><button type="submit">Search</button></p>
+	<% end %>
+</div>

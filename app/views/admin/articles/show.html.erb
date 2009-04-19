@@ -1,0 +1,48 @@
+<p>
+  <b>Title:</b>
+  <%=h @article.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @article.body %>
+</p>
+
+<p>
+  <b>Extended:</b>
+  <%=h @article.extended %>
+</p>
+
+<p>
+  <b>Excerpt:</b>
+  <%=h @article.excerpt %>
+</p>
+
+<p>
+  <b>Keywords:</b>
+  <%=h @article.keywords %>
+</p>
+
+<p>
+  <b>Basename:</b>
+  <%=h @article.basename %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%=h @article.status %>
+</p>
+
+<p>
+  <b>Text filter:</b>
+  <%=h @article.text_filter %>
+</p>
+
+<p>
+  <b>Published at:</b>
+  <%=h @article.published_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

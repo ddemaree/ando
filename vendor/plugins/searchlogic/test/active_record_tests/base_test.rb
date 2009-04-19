@@ -37,7 +37,7 @@ module ActiveRecordTests
     end
     
     def test_valid_ar_options
-      assert_equal [:conditions, :include, :joins, :limit, :offset, :order, :select, :readonly, :group, :having, :from, :lock], ActiveRecord::Base.valid_find_options
+      assert_equal [:conditions, :include, :joins, :limit, :offset, :order, :select, :readonly, :group, :from, :lock], ActiveRecord::Base.valid_find_options
       assert_equal [:conditions, :joins, :order, :select, :group, :having, :distinct, :limit, :offset, :include, :from], ActiveRecord::Base.valid_calculations_options
     end
     
@@ -73,7 +73,7 @@ module ActiveRecordTests
     def test_searchlogic_counting
       assert_equal 2, Account.count(:conditions => {:name_contains => "Binary"})
       assert_equal 1, Account.count(:conditions => {:name_contains => "Binary", :users => {:first_name_contains => "Ben"}})
-      assert_equal 1, Account.count(:conditions => {:name_contains => "Binary", :users => {:first_name_contains => "Ben"}}, :limit => 10, :offset => 10, :order_by => "id", :group => "accounts.id")
+      assert_equal 1, Account.count(:conditions => {:name_contains => "Binary", :users => {:first_name_contains => "Ben"}}, :limit => 10, :offset => 10, :order_by => "id", :group => "id")
     end
     
     def test_scoping
@@ -103,13 +103,6 @@ module ActiveRecordTests
     
     def test_includes
       assert_nothing_raised { Account.all(:conditions => {:users => {:first_name_like => "Ben"}}, :include => :users) }
-    end
-    
-    def test_remove_duplicate_joins
-      query = "SELECT DISTINCT `ticket_groups`.* FROM `ticket_groups` INNER JOIN tickets ON ticket_groups.id = tickets.ticket_group_id     LEFT OUTER JOIN `tickets` ON tickets.ticket_group_id = ticket_groups.id  WHERE (`tickets`.`id` = 2) AND ((`tickets`.event_id = 810802042))  LIMIT 20"
-      cleaned_query = ActiveRecord::Base.send(:remove_duplicate_joins, query)
-      expected_query = "SELECT DISTINCT `ticket_groups`.* FROM `ticket_groups` INNER JOIN tickets ON ticket_groups.id = tickets.ticket_group_id WHERE (`tickets`.`id` = 2) AND ((`tickets`.event_id = 810802042)) LIMIT 20"
-      assert_equal expected_query, cleaned_query
     end
   end
 end

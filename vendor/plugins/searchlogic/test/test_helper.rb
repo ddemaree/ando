@@ -7,11 +7,6 @@ require File.dirname(__FILE__) + '/libs/awesome_nested_set'
 require File.dirname(__FILE__) + '/libs/rexml_fix'
 require File.dirname(__FILE__) + '/../lib/searchlogic' unless defined?(Searchlogic)
 
-Time.zone = "Eastern Time (US & Canada)"
-ActiveRecord::Base.time_zone_aware_attributes = true
-ActiveRecord::Base.default_timezone = :utc
-#Time.zone_default = "Eastern Time (US & Canada)"
-
 ActiveRecord::Schema.verbose = false
 ActiveRecord::Base.establish_connection(:adapter => "sqlite3", :dbfile => ":memory:")
 ActiveRecord::Base.configurations = true
@@ -112,11 +107,10 @@ end
 class Cat < Animal
 end
 
-class ActiveSupport::TestCase
-  include ActiveRecord::TestFixtures
+class Test::Unit::TestCase
   self.fixture_path = File.dirname(__FILE__) + "/fixtures"
-  self.use_transactional_fixtures = false
+  self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
-  self.pre_loaded_fixtures = false
+  self.pre_loaded_fixtures = true
   fixtures :all
 end

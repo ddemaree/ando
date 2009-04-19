@@ -47,11 +47,6 @@ module Searchlogic
           "(strftime('%Y', #{column_name}) * 1)"
         end
         
-        # Number functions
-        def avg_sql(column_name)
-          "AVG(#{column_name})"
-        end
-        
         # String functions
         def lower_sql(column_name)
           "lower(#{column_name})"

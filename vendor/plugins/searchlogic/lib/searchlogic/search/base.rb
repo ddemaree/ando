@@ -11,7 +11,7 @@ module Searchlogic #:nodoc:
       AR_FIND_OPTIONS = ::ActiveRecord::Base.valid_find_options
       
       # Options ActiveRecord allows when performing calculations
-      AR_CALCULATIONS_OPTIONS = (::ActiveRecord::Base.valid_calculations_options - [:select, :limit, :offset, :order, :group, :include])
+      AR_CALCULATIONS_OPTIONS = (::ActiveRecord::Base.valid_calculations_options - [:select, :limit, :offset, :order, :group])
       
       AR_OPTIONS = (AR_FIND_OPTIONS + AR_CALCULATIONS_OPTIONS).uniq
       
@@ -120,8 +120,8 @@ module Searchlogic #:nodoc:
       end
       
       def select
-        @select ||= "DISTINCT #{klass.connection.quote_table_name(klass.table_name)}.*" if !joins.blank? && Config.search.remove_duplicates? && klass.connection.adapter_name != "PostgreSQL"
-        @select
+        return @select if klass.connection.adapter_name == "PostgreSQL" # Postgres needs ALL of the column names here, including association columns, etc. Which is very strange, so I disable this feature for Postgres all together.
+        @select ||= "DISTINCT #{klass.connection.quote_table_name(klass.table_name)}.*" if !joins.blank? && Config.search.remove_duplicates?
       end
       
       def scope

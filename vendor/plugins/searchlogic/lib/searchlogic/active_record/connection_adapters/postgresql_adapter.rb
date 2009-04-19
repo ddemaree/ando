@@ -93,10 +93,6 @@ module Searchlogic
           "atan(#{column_name})"
         end
         
-        def avg_sql(column_name)
-          "AVG(#{column_name})"
-        end
-        
         def ceil_sql(column_name)
           "ceil(#{column_name})"
         end

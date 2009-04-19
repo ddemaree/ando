@@ -2,7 +2,16 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 
+# Require all factories
+require 'factory_girl'
+Dir[File.dirname(__FILE__) + '/factories/*.rb'].each { |factory| require factory }
+
+require File.expand_path(File.dirname(__FILE__) + "/blueprints")
+
 class ActiveSupport::TestCase
+  
+  setup { Sham.reset }
+  
   # Transactional fixtures accelerate your tests by wrapping each test method
   # in a transaction that's rolled back on completion.  This ensures that the
   # test database remains unchanged so your fixtures don't have to be reloaded
@@ -32,28 +41,7 @@ class ActiveSupport::TestCase
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
-  fixtures :all
+  #fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  
-  def set_current_user
-    Ando.current_user = @current_user = Factory(:email_confirmed_user)
-  end
-  
-  def mock_date_and_time
-    Date.stubs(:today).returns Date.new(2008,2,15)
-    Time.stubs(:now).returns   Time.utc(2008,2,15,12,0,0)
-  end
-  
-  def self.should_provide_accessors_for(*methods)
-    instance = get_instance_of(model_class)
-    
-    methods.each do |method_name|
-      should "provide accessor for #{method_name}" do
-        assert instance.respond_to?(method_name.to_sym)
-        assert instance.respond_to?("#{method_name}=".to_sym)
-      end
-    end
-  end
-  
 end

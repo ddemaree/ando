@@ -1,163 +1,50 @@
-/* @override http://localhost:3000/stylesheets/admin.css */
- 
-@import "lib/reset.css";
-@import "lib/grid.css";
-@import "lib/forms.css";
- 
-body, html {
-	background: #fff;
+/* @override 
+	http://localhost:3000/stylesheets/scaffold.css
+	http://lappy586.local:3001/stylesheets/admin.css
+*/
+
+@import url(lib/reset.css);
+
+html, body {
+	background: url(../images/sidebar-bg.png) repeat-y;
+	font-family: Helvetica;
 }
- 
-body {
-	font: 13px/18px Helvetica;
+
+#toolbar {
+	background: -webkit-gradient(linear, left top, left bottom, from(#a2b2d0), to(#6f82aa));
+	border-bottom: 1px solid #000;
 }
- 
-label.ghost {
-	color: #bbb;
-	padding: 0.5em 0 0 6px;
+
+#toolbar > div {
+	padding: 10px 20px;
 }
- 
-.text label.ghost,
-.title label.ghost {
-	margin-top: 0.5em;
+
+#left-sidebar {
+	width: 180px;
+	float: left;	
 }
- 
-.title label.ghost {
-	font-size: 1.5em;
+
+#left-sidebar ul {
+	padding: 20px 0 0;
 }
- 
-.tabbed .text label.ghost {
-  margin-top: 0;
+
+#left-sidebar ul a {
+	display: block;
+	padding: 4px 20px;
+	text-decoration: none;
+	color: #000;
+	font-size: 13px;
+	margin-bottom: 2px;
 }
- 
-#article_editor textarea,
-#article_editor .text input,
-#article_editor .title input {
-	width: 600px;
+
+#left-sidebar ul .current a {
+	background: -webkit-gradient(linear, left top, left bottom, from(#a2b2d0), to(#6f82aa));
+	border-top: 1px solid #91a0c0;
+	color: #fff;
+	text-shadow: 0 1px 1px #000;
+	font-weight: bold;
 }
- 
-#article_editor textarea {
-	font: 12px/1.5 Panic Sans, Monaco, Andale Mono;
-	color: #444;
-}
- 
-#article_editor .actions {
-  background: #fff;
-  padding: 10px 0;
-}
- 
-#article_editor .actions input[type=submit],
-#article_editor .actions button {
-  padding: 4px 10px;
-  background: -webkit-gradient(
-  	linear, left top, left bottom,
-  	from(#def), to(#8ab)
-  );
-  border: 0;
-  -webkit-border-radius: 10px;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.7);
-  font: 12px/1.5 Helvetica;
-}
- 
-.posts_list li {
-  margin: 0;
-  padding: 5px 0;
-  clear: both;
-}
- 
-.posts_list hr {
-  margin: 0;
-  height: 10px;
-  background: #fff;
-  border-bottom: 1px solid #def;
-}
- 
-.posts_list li > div {
-	float: left;
-	width: 200px;
-}
- 
-.posts_list .post_type {
-  width: 70px;
-}
- 
-.posts_list .post_type strong {
-  padding: 4px 8px 4px;
-  background: #000;
-  color: #fff;
-  float: left;
-  -webkit-border-radius: 4px;
-  font-size: 11px;
-  line-height: 11px;
-}
- 
-.posts_list .post_summary {
-  width: 480px;
-}
- 
- 
-#article_editor .excerpt textarea {
-  height: 100px;
-}
- 
-#article_editor #t_excerpt {
-  margin-top: -6px;
-  padding-bottom: 10px;
-}
- 
-#article_editor #t_excerpt > a {
-  color: #888;
-  font-size: 11px;
-}
- 
-.tabbed .tabs {
-  background: -webkit-gradient(
-  	linear, left top, left bottom,
-  	from(#fcfcfc), to(#d4d4d4),
-  	color-stop(0.3, #e5e5e5)
-  );
-  padding: 4px;
-  border: 1px solid #ccc;
-  border-bottom: 0;
-  -webkit-border-top-left-radius: 10px;
-  -webkit-border-top-right-radius: 10px;
-}
- 
-.tabbed .tabs li {
-  float: left;
-}
- 
-.tabbed .tabs a {
-  display: block;
-  padding: 3px 10px;
-  text-decoration: none;
-  margin-right: 0px;
-  -webkit-border-radius: 9px;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-  color: #000;
-}
- 
-.tabbed .tabs a.selected {
-  background: -webkit-gradient(
-  	linear, left top, left bottom,
-  	from(#888), to(#bbb)
-  );
-  -webkit-box-shadow: 0 1px 0 #fff;
-  font-weight: bold;
-}
- 
-#article_editor .tabbed textarea {
-  	height: 460px;
-  	width: 618px;
-  	margin: 0;
-}
- 
-label {
-  font-weight: bold;
-}
- 
-.text_field label {
-  display: block;
-  position: relative;
-  top: 3px;
+
+#workspace {
+	margin-left: 180px;
 }

@@ -1,54 +1,103 @@
-require 'test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
+  # Then, you can remove it from this and the functional test.
+  include AuthenticatedTestHelper
+  fixtures :users
 
-  should_not_allow_mass_assignment_of :email_confirmed,
-    :salt, :encrypted_password,
-    :token, :token_expires_at
-    
-    # signing up
-
-    context "When signing up" do
-      should_validate_presence_of :email, :password
-      should_allow_values_for     :email, "foo@example.com"
-      should_not_allow_values_for :email, "foo"
-      should_not_allow_values_for :email, "example.com"
-
-      should "require password confirmation on create" do
-        user = Factory.build(:user, :password              => 'blah',
-                                    :password_confirmation => 'boogidy')
-        assert ! user.save
-        assert user.errors.on(:password)
-      end
-
-      should "store email in exact case" do
-        user = Factory(:user, :email => "John.Doe@example.com")
-        assert_equal "John.Doe@example.com", user.email
-      end
+  def test_should_create_user
+    assert_difference 'User.count' do
+      user = create_user
+      assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
     end
+  end
 
-    context "When multiple users have signed up" do
-      setup { @user = Factory(:user) }
-      should_validate_uniqueness_of :email
+  def test_should_require_login
+    assert_no_difference 'User.count' do
+      u = create_user(:login => nil)
+      assert u.errors.on(:login)
     end
-    
-    # authenticating
+  end
 
-    context "A user" do
-      setup do
-        @user     = Factory(:user)
-        @password = @user.password
-      end
-
-      should "authenticate with good credentials" do
-        assert User.authenticate(@user.email, @password)
-        assert @user.authenticated?(@password)
-      end
-
-      should "not authenticate with bad credentials" do
-        assert ! User.authenticate(@user.email, 'bad_password')
-        assert ! @user.authenticated?('bad_password')
-      end
+  def test_should_require_password
+    assert_no_difference 'User.count' do
+      u = create_user(:password => nil)
+      assert u.errors.on(:password)
     end
+  end
 
+  def test_should_require_password_confirmation
+    assert_no_difference 'User.count' do
+      u = create_user(:password_confirmation => nil)
+      assert u.errors.on(:password_confirmation)
+    end
+  end
+
+  def test_should_require_email
+    assert_no_difference 'User.count' do
+      u = create_user(:email => nil)
+      assert u.errors.on(:email)
+    end
+  end
+
+  def test_should_reset_password
+    users(:quentin).update_attributes(:password => 'new password', :password_confirmation => 'new password')
+    assert_equal users(:quentin), User.authenticate('quentin', 'new password')
+  end
+
+  def test_should_not_rehash_password
+    users(:quentin).update_attributes(:login => 'quentin2')
+    assert_equal users(:quentin), User.authenticate('quentin2', 'monkey')
+  end
+
+  def test_should_authenticate_user
+    assert_equal users(:quentin), User.authenticate('quentin', 'monkey')
+  end
+
+  def test_should_set_remember_token
+    users(:quentin).remember_me
+    assert_not_nil users(:quentin).remember_token
+    assert_not_nil users(:quentin).remember_token_expires_at
+  end
+
+  def test_should_unset_remember_token
+    users(:quentin).remember_me
+    assert_not_nil users(:quentin).remember_token
+    users(:quentin).forget_me
+    assert_nil users(:quentin).remember_token
+  end
+
+  def test_should_remember_me_for_one_week
+    before = 1.week.from_now.utc
+    users(:quentin).remember_me_for 1.week
+    after = 1.week.from_now.utc
+    assert_not_nil users(:quentin).remember_token
+    assert_not_nil users(:quentin).remember_token_expires_at
+    assert users(:quentin).remember_token_expires_at.between?(before, after)
+  end
+
+  def test_should_remember_me_until_one_week
+    time = 1.week.from_now.utc
+    users(:quentin).remember_me_until time
+    assert_not_nil users(:quentin).remember_token
+    assert_not_nil users(:quentin).remember_token_expires_at
+    assert_equal users(:quentin).remember_token_expires_at, time
+  end
+
+  def test_should_remember_me_default_two_weeks
+    before = 2.weeks.from_now.utc
+    users(:quentin).remember_me
+    after = 2.weeks.from_now.utc
+    assert_not_nil users(:quentin).remember_token
+    assert_not_nil users(:quentin).remember_token_expires_at
+    assert users(:quentin).remember_token_expires_at.between?(before, after)
+  end
+
+protected
+  def create_user(options = {})
+    record = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire69', :password_confirmation => 'quire69' }.merge(options))
+    record.save
+    record
+  end
 end
